@@ -1,7 +1,6 @@
 package com.java.java8;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -13,7 +12,8 @@ public class LambdaCharacteristic {
     public static void main(String[] args) {
 //        streamForeach();
 //        streamMap();
-        streamFilter();
+//        streamFilter();
+        sortByMapValue();
     }
 
     /**
@@ -66,6 +66,38 @@ public class LambdaCharacteristic {
         ).collect(Collectors.toList());
         collect.forEach(s -> {
             System.out.println(s);
+        });
+    }
+    /**
+     * 通过lambda表达式，对map的value进行排序
+     */
+    public static void sortByMapValue() {
+
+        // 初始数据
+        Map<String, Integer> smap = new HashMap<>();
+        smap.put("1", 11);
+        smap.put("3", 33);
+        smap.put("2", 22);
+
+        // 1.8以前
+        List<Map.Entry<String, Integer>> list1 = new ArrayList<>();
+        list1.addAll(smap.entrySet());
+        Collections.sort(list1, new Comparator<Map.Entry<String, Integer>>() {
+            @Override
+            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                return o1.getValue() - o2.getValue();
+            }
+        });
+        for (Map.Entry<String, Integer> entry : list1) {
+            System.out.println("key:" + entry.getKey() + ",value:" + entry.getValue());
+        }
+
+        // 1.8使用lambda表达式
+        List<Map.Entry<String, Integer>> list2 = new ArrayList<>();
+        list2.addAll(smap.entrySet());
+        Collections.sort(list2, (o1, o2) -> o1.getValue() - o2.getValue());
+        list2.forEach(entry -> {
+            System.out.println("key:" + entry.getKey() + ",value:" + entry.getValue());
         });
     }
 }
