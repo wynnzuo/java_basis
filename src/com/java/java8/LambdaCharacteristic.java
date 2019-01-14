@@ -1,7 +1,11 @@
 package com.java.java8;
 
+import com.java.dto.Apple;
+import com.java.dto.Fruit;
+
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @auther: wynnzuo
@@ -13,7 +17,12 @@ public class LambdaCharacteristic {
 //        streamForeach();
 //        streamMap();
 //        streamFilter();
-        sortByMapValue();
+//        sortByMapValue();
+//        int i = addUp(Stream.of(1, 2, 3, 4, 5));
+//        System.out.println(i);
+        List<Fruit> fruits = Arrays.asList(new Fruit(), new Fruit(), new Fruit());
+        int i = sumId(fruits);
+        System.out.println(i);
     }
 
     /**
@@ -99,5 +108,26 @@ public class LambdaCharacteristic {
         list2.forEach(entry -> {
             System.out.println("key:" + entry.getKey() + ",value:" + entry.getValue());
         });
+    }
+
+    /**
+     * 编写一个stream的求和方法
+     * @param numbers
+     * @return
+     */
+    public static int addUp(Stream<Integer> numbers){
+        Integer reduce = numbers.reduce(0, (x, y) -> x + y);
+        return reduce;
+    }
+    public static int sumId(List<Fruit> fruits){
+//        Integer totalMembers = 0;
+//        for (Fruit f : fruits) {
+//            Stream<Apple> appleStream = f.getAppleStream();
+//            totalMembers += appleStream.count();
+//        }
+//        int reduce = (Integer)fruits.stream().map(fruit -> fruit.getAppleStream().count()).reduce(new Long(0), (x, y) -> x + y).intValue();
+        Integer [] totalMembers = {0};
+        fruits.stream().map(fruit -> fruit.getAppleStream().count()).forEach(count -> totalMembers[0]+=count.intValue());
+        return  totalMembers[0];
     }
 }

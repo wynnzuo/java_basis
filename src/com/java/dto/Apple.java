@@ -6,8 +6,8 @@ package com.java.dto;
  * @description:
  */
 public class Apple {
-    private int id;
-    private String name;
+    private int id=5;
+    private String name="apple";
 
     public int getId() {
         return id;
